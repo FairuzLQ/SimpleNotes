@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -42,7 +43,7 @@ public class SignUp extends AppCompatActivity {
         submitToLogin = findViewById(R.id.signup_login);
 
         submitSignUp.setOnClickListener(v-> createAccount());
-        submitToLogin.setOnClickListener(v-> finish());
+        submitToLogin.setOnClickListener((v)-> startActivity(new Intent(SignUp.this,Login.class)));
 
 
     }
