@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:padding="16dp"
+    tools:context=".DetailNote">
+    
+    <RelativeLayout
+        android:id="@+id/add_note_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/teks_add_note_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Catatan Baru"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            />
+
+        <ImageButton
+            android:id="@+id/detail_save_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_baseline_done_24"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/detail_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_note_title"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginVertical="30dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/not_too_rounded_corner"
+        >
+        
+        <EditText
+            android:id="@+id/detail_note_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Judul Catatan"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginVertical="8dp"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
+
+            android:backgroundTint="@color/primary"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/detail_note_dates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sabtu, 15 Februari 2023"
+                android:fontFamily="@font/montserrat"
+                android:textSize="13sp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/detail_note_time"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13:00"
+                android:fontFamily="@font/montserrat"
+                android:textSize="13sp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/detail_note_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tulis catatan kamu di sini"
+            android:textSize="16sp"
+            android:minLines="18"
+            android:gravity="top"
+            android:layout_marginVertical="8dp"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
+
+            android:backgroundTint="@color/primary"
+            />
+
+
+
+    </LinearLayout>
+</RelativeLayout>
