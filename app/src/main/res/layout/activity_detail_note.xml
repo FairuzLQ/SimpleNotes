@@ -59,7 +59,7 @@
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
 
-            android:backgroundTint="@color/primary"
+            app:backgroundTint="@color/light_black"
             />
 
         <RelativeLayout
@@ -100,7 +100,7 @@
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
 
-            android:backgroundTint="@color/primary"
+            app:backgroundTint="@color/light_black"
             />
 
 
