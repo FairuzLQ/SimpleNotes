@@ -102,8 +102,18 @@
 
             app:backgroundTint="@color/light_black"
             />
-
-
-
     </LinearLayout>
+    
+    <TextView
+        android:id="@+id/hapus_catatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hapus Catatan"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:textColor="#FF0000"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textSize="18sp"
+        />
 </RelativeLayout>

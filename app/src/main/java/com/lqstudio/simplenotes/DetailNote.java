@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextClock;
@@ -33,6 +34,9 @@ public class DetailNote extends AppCompatActivity {
     //VARIABEL UNTUK EDIT CATATAN
     String editJudul, editDetail, docId;
 
+    //HAPUS CATATAN
+    TextView hapusNote;
+
     //CEK APAKAH CATATAN BARU ATAU CATATAN EDIT, JIKA FALSE BERARTI BELUM ADA REFERENCE ID DOCUMENT
     boolean isEditMode = false;
 
@@ -49,6 +53,9 @@ public class DetailNote extends AppCompatActivity {
 
         //TITLE DI ATAS
         titleDetail = findViewById(R.id.teks_add_note_title);
+
+        //BUTTON UNTUK HAPUS NOTE
+        hapusNote = findViewById(R.id.hapus_catatan);
 
         //AMBIL DATA CATATAN UNTUK DIEDIT
         editJudul = getIntent().getStringExtra("judul");
@@ -67,6 +74,7 @@ public class DetailNote extends AppCompatActivity {
         //APABILA USER INGIN EDIT CATATAN, GANTI TITLE DI ATAS
         if(isEditMode){
             titleDetail.setText("Edit Catatan Anda");
+            hapusNote.setVisibility(View.VISIBLE);
         }
 
         //AMBIL TANGGAL DIBUATNYA CATATAN
@@ -80,6 +88,8 @@ public class DetailNote extends AppCompatActivity {
         //SIMPAN CATATAN
         simpanNote = findViewById(R.id.detail_save_button);
         simpanNote.setOnClickListener((v)->simpanNoteDB());
+
+        hapusNote.setOnClickListener((v)->hapusCatatandariFirebase());
     }
 
     void simpanNoteDB(){
@@ -136,5 +146,25 @@ public class DetailNote extends AppCompatActivity {
         currentTime = simpleDateFormat.format(new Date());
         tglNote.setText(currentTime);
 
+    }
+
+    void hapusCatatandariFirebase(){
+        //AMBIL REFERENSI USER DARI FIREBASE
+        DocumentReference documentReference;
+
+        documentReference = Utility.ambilReferensiNote().document(docId);
+
+        documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(DetailNote.this, "Berhasil menghapus catatan", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else{
+                    Toast.makeText(DetailNote.this, "Gagal menghapus catatan", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
