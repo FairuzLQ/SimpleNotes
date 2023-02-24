@@ -25,10 +25,16 @@ import java.util.Date;
 public class DetailNote extends AppCompatActivity {
 
     EditText judulNote, detailNote;
-    TextView tglNote;
+    TextView tglNote, titleDetail;
     TextClock waktuNote;
     ImageButton simpanNote;
     String waktuDatabase, currentTime;
+
+    //VARIABEL UNTUK EDIT CATATAN
+    String editJudul, editDetail, docId;
+
+    //CEK APAKAH CATATAN BARU ATAU CATATAN EDIT, JIKA FALSE BERARTI BELUM ADA REFERENCE ID DOCUMENT
+    boolean isEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +43,42 @@ public class DetailNote extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
+        //AMBIL JUDUL DAN ISI CATATAN
         judulNote = findViewById(R.id.detail_note_title);
         detailNote = findViewById(R.id.detail_note_desc);
 
+        //TITLE DI ATAS
+        titleDetail = findViewById(R.id.teks_add_note_title);
+
+        //AMBIL DATA CATATAN UNTUK DIEDIT
+        editJudul = getIntent().getStringExtra("judul");
+        editDetail = getIntent().getStringExtra("deskripsi");
+        docId = getIntent().getStringExtra("docId");
+
+        //CEK ID DOCUMENT
+        if(docId!=null && !docId.isEmpty()){
+            isEditMode = true;
+        }
+
+        //TAMPILIN ISI CATATAN YANG AKAN DIEDIT
+        judulNote.setText(editJudul);
+        detailNote.setText(editDetail);
+
+        //APABILA USER INGIN EDIT CATATAN, GANTI TITLE DI ATAS
+        if(isEditMode){
+            titleDetail.setText("Edit Catatan Anda");
+        }
+
+        //AMBIL TANGGAL DIBUATNYA CATATAN
         tglNote = findViewById(R.id.detail_note_dates);
+
+        //SET WAKTU LIVE CATATAN
         waktuNote = findViewById(R.id.detail_note_time);
         waktuNote.setFormat12Hour("kk:mm");
         waktuRealTime();
-        simpanNote = findViewById(R.id.detail_save_button);
 
+        //SIMPAN CATATAN
+        simpanNote = findViewById(R.id.detail_save_button);
         simpanNote.setOnClickListener((v)->simpanNoteDB());
     }
 
@@ -72,8 +105,16 @@ public class DetailNote extends AppCompatActivity {
     }
 
     void simpanKeFirebase(Note note){
+        //AMBIL REFERENSI USER DARI FIREBASE
         DocumentReference documentReference;
-        documentReference = Utility.ambilReferensiNote().document();
+        //CEK APAKAH USER SEDANG EDIT ATAU ENGGA
+        if(isEditMode){
+            //JIKA YA, MAKA AKAN DIREFERENSIKAN KE ID CATATAN USER YANG LAGI DIEDIT
+            documentReference = Utility.ambilReferensiNote().document(docId);
+        }else{
+            //JIKA ENGGA, BIKIN CATATAN DENGAN ID CATATAN BARU
+            documentReference = Utility.ambilReferensiNote().document();
+        }
         documentReference.set(note).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

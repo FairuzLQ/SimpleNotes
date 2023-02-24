@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Utility {
 
     static CollectionReference ambilReferensiNote(){
+        //AMBIL ID USER YANG SEDANG LOGIN
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return FirebaseFirestore.getInstance().collection("notes").document(currentUser.getUid()).collection("notes_saya");
 

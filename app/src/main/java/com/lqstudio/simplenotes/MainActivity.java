@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setupRecyclerView(){
-        Query query = Utility.ambilReferensiNote().orderBy("tanggal",Query.Direction.DESCENDING);
+        //QUERY UNTUK AMBIL CATATAN NOTE BERDASARKAN URUTAN TANGGAL
+        Query query = Utility.ambilReferensiNote().orderBy("timestamp",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query,Note.class).build();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
